@@ -1,20 +1,31 @@
 import './App.css';
 import styles from './App.module.css';
-import { useRef, useEffect, useState } from 'react';
-import useLocalStorage from './useLocalStorage';
-import _ from 'lodash';
-import useUpdateLogger from './useUpdateLogger';
+import { useCallback, useRef, useEffect, useState } from 'react';
+import List from './List';
 
 function App() {
-  const [value, setValue] = useLocalStorage('name', '');
-  const handleInput = (event) => {
-    setValue(event.target.value);
+  const [number, setNumber] = useState(1);
+  const [dark, setDark] = useState(false);
+
+  const getItems = useCallback(() => {
+    return [number, number + 1, number + 2];
+  }, [number]);
+
+  const theme = {
+    backgroundColor: dark ? '#333' : '#FFF',
+    color: dark ? '#FFF' : '#333',
   };
-  useUpdateLogger(value);
   return (
-    <div>
-      <div>data: {value}</div>
-      <input value={value} onChange={handleInput} />
+    <div style={theme}>
+      <input
+        type="number"
+        value={number}
+        onChange={(e) => setNumber(parseInt(e.target.value))}
+      />
+      <button onClick={() => setDark((prevDark) => !prevDark)}>
+        toggle theme
+      </button>
+      <List getItems={getItems} />
     </div>
   );
 }
