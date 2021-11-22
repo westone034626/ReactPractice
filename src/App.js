@@ -1,33 +1,20 @@
-import './App.css';
-import styles from './App.module.css';
-import { useCallback, useRef, useEffect, useState } from 'react';
-import List from './List';
+import React, { useState, useRef, useEffect } from 'react';
 
-function App() {
-  const [number, setNumber] = useState(1);
-  const [dark, setDark] = useState(false);
+export default function App() {
+  const [resourceType, setResourceType] = useState('posts');
+  console.log('render');
+  useEffect(() => {
+    console.log('resourceType changed');
+  }, [resourceType]);
 
-  const getItems = useCallback(() => {
-    return [number, number + 1, number + 2];
-  }, [number]);
-
-  const theme = {
-    backgroundColor: dark ? '#333' : '#FFF',
-    color: dark ? '#FFF' : '#333',
-  };
   return (
-    <div style={theme}>
-      <input
-        type="number"
-        value={number}
-        onChange={(e) => setNumber(parseInt(e.target.value))}
-      />
-      <button onClick={() => setDark((prevDark) => !prevDark)}>
-        toggle theme
-      </button>
-      <List getItems={getItems} />
-    </div>
+    <>
+      <div>
+        <button onClick={() => setResourceType('posts')}>Posts</button>
+        <button onClick={() => setResourceType('Users')}>Users</button>
+        <button onClick={() => setResourceType('Comments')}>Comments</button>
+      </div>
+      <h1>{resourceType}</h1>
+    </>
   );
 }
-
-export default App;
