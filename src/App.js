@@ -1,20 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { initial } from 'lodash';
+import React, { useState, useRef, useEffect, useReducer } from 'react';
+import Item from './Item';
+
+const count = 0;
+
+function reducer(state, action) {
+  return action(state);
+}
 
 export default function App() {
-  const [resourceType, setResourceType] = useState('posts');
-  console.log('render');
-  useEffect(() => {
-    console.log('resourceType changed');
-  }, [resourceType]);
+  const [state, dispatch] = useReducer(reducer, count);
 
   return (
     <>
-      <div>
-        <button onClick={() => setResourceType('posts')}>Posts</button>
-        <button onClick={() => setResourceType('Users')}>Users</button>
-        <button onClick={() => setResourceType('Comments')}>Comments</button>
-      </div>
-      <h1>{resourceType}</h1>
+      Count: {state}
+      <button onClick={() => dispatch((prev) => prev - 1)}>-</button>
+      <button onClick={() => dispatch((prev) => prev + 1)}>+</button>
     </>
   );
 }
