@@ -1,21 +1,36 @@
-import { initial } from 'lodash';
-import React, { useState, useRef, useEffect, useReducer } from 'react';
-import Item from './Item';
-
-const count = 0;
-
-function reducer(state, action) {
-  return action(state);
-}
+import React, { useState, useMemo } from 'react';
+import Form from './Form';
+import List from './List';
+import Test from './Test';
+import TodoProvider from './TodoProvider';
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, count);
-
+  const [dark, setDark] = useState(false);
+  const themeStyle = {
+    color: dark ? '#FFF' : '#000',
+    backgroundColor: dark ? '#000' : '#FFF',
+  };
+  console.log('App rendered');
+  const exampleListForm = useMemo(() => {
+    return (
+      <>
+        <List />
+        <Form />
+      </>
+    );
+  }, []);
   return (
     <>
-      Count: {state}
-      <button onClick={() => dispatch((prev) => prev - 1)}>-</button>
-      <button onClick={() => dispatch((prev) => prev + 1)}>+</button>
+      <TodoProvider>{exampleListForm}</TodoProvider>
+      <button
+        style={themeStyle}
+        onClick={() => {
+          setDark((prev) => !prev);
+        }}
+      >
+        {dark ? '다크모드 off' : '다크모드 on'}
+      </button>
+      <Test />
     </>
   );
 }

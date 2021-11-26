@@ -1,14 +1,21 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
+import { useTodo } from './TodoProvider';
 
-const List = ({ getItems }) => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    setItems(getItems());
-    console.log('Updating Items.');
-  }, [getItems]);
-
-  return items.map((item) => <div key={item}>{item}</div>);
+const List = () => {
+  const state = useTodo();
+  console.log('List rendered');
+  return (
+    <ul>
+      {state.map((i) => (
+        <Item key={i.id} name={i.name} />
+      ))}
+    </ul>
+  );
 };
 
-export default List;
+export default React.memo(List);
+
+const Item = React.memo(({ name }) => {
+  console.log('Item rendered');
+  return <li>{name}</li>;
+});

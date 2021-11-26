@@ -3,7 +3,6 @@ const Item = ({ controller }) => {
   const increment = () => {
     controller((prev) => prev + 1);
   };
-  console.log('sdf');
   return (
     <>
       <div>Item</div>
