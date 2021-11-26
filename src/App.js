@@ -11,17 +11,12 @@ export default function App() {
     backgroundColor: dark ? '#000' : '#FFF',
   };
   console.log('App rendered');
-  const exampleListForm = useMemo(() => {
-    return (
-      <>
-        <List />
-        <Form />
-      </>
-    );
-  }, []);
   return (
     <>
-      <TodoProvider>{exampleListForm}</TodoProvider>
+      <TodoProvider>
+        <List />
+        <Form />
+      </TodoProvider>
       <button
         style={themeStyle}
         onClick={() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTodo } from './TodoProvider';
 
 const List = () => {
-  const state = useTodo();
+  const { state } = useTodo();
   console.log('List rendered');
   return (
     <ul>
@@ -13,9 +13,9 @@ const List = () => {
   );
 };
 
-export default React.memo(List);
+export default List;
 
-const Item = React.memo(({ name }) => {
+const Item = ({ name }) => {
   console.log('Item rendered');
   return <li>{name}</li>;
-});
+};

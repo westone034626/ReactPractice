@@ -1,21 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { useTodoDispatch } from './TodoProvider';
+import React, { useState } from 'react';
+import { useTodo } from './TodoProvider';
 
 function Form() {
-  const dispatch = useTodoDispatch();
-  //   const inputRef = useRef();
+  const { dispatch } = useTodo();
   const [name, setName] = useState('');
   function onSubmit(event) {
     event.preventDefault();
-    // dispatch({ type: 'ADD', payload: { name: inputRef.current.value } });
     dispatch({ type: 'ADD', payload: { name } });
-    // inputRef.current.value = '';
     setName('');
   }
   console.log('Form rendered');
   return (
     <form onSubmit={onSubmit}>
-      {/* <input ref={inputRef} /> */}
       <input
         value={name}
         onChange={(e) => {
@@ -27,4 +23,4 @@ function Form() {
   );
 }
 
-export default React.memo(Form);
+export default Form;
