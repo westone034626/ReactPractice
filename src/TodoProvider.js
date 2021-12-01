@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useReducer, useEffect } from 'react';
+import React, { useContext, createContext, useReducer, useMemo } from 'react';
 
 const TodoContext = createContext();
 
@@ -25,9 +25,6 @@ function TodoProvider({ children }) {
     { id: 2, name: 'song' },
   ]);
 
-  useEffect(() => {
-    console.log('children changed');
-  }, [children]);
   console.log('TodoProvider rendered');
 
   return (

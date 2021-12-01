@@ -15,7 +15,7 @@ const List = () => {
 
 export default List;
 
-const Item = ({ name }) => {
+const Item = React.memo(({ name }) => {
   console.log('Item rendered');
   return <li>{name}</li>;
-};
+});
